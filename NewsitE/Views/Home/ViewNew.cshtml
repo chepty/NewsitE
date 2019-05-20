@@ -1,0 +1,14 @@
+﻿@model NewsitE.Models.ArticleModel
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@Html.ActionLink("Dont think this is correct? Edit now!", "EditNew", new { guid = Model.ID })
+@Html.ActionLink("This new is ofensive! Delete it!", "DeleteNew", new { guid = Model.ID }, new { style = "float:right;" })
+<p style="font-weight: bold;">@Html.DisplayFor(m => Model.Title)</p>
+<p style="font-weight: normal; font-size:8px;     overflow: hidden;">by @Html.DisplayFor(m => Model.Author) @Html.DisplayFor(m => Model.CreationTimestamp)</p>
+@if (Model.Editor != null)
+{
+    <p style="font-weight: normal; font-size:8px;">Last edited by @Html.DisplayFor(m => Model.Editor) @Html.DisplayFor(m => Model.EditTimestamp)</p>
+}
+<p style="font-weight: normal; overflow: hidden;">@Html.DisplayFor(m => Model.Body)</p>

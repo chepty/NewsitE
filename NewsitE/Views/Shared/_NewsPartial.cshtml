@@ -1,0 +1,22 @@
+﻿@model NewsitE.Models.NewsModel
+@{
+    var cardlist = Model;
+}
+
+@foreach (var element in cardlist.articles)
+{
+<div style="border: 3px solid black; margin: 5px 5px 5px 5px; padding: 5px 5px 5px 5px;overflow: hidden;">
+    <p style="font-weight: bold;">@Html.DisplayFor(m => element.Title)</p>
+    <p style="font-weight: normal; font-size:8px;">by @Html.DisplayFor(m => element.Author) @Html.DisplayFor(m => element.CreationTimestamp)</p>
+    @if (element.Editor != null)
+    {
+        <p style="font-weight: normal; font-size:8px;">Last edited by @Html.DisplayFor(m => element.Editor) @Html.DisplayFor(m => element.EditTimestamp)</p>
+    }
+    <p style="font-weight: normal;">
+        @Html.DisplayFor(m => element.Body)     @if (element.Body.Length > 200)
+        {@Html.ActionLink("read more >>>", "ViewNew", new { guid = element.ID })}
+    </p>
+    @Html.ActionLink("Dont think this is correct? Edit now!", "EditNew", new { guid = element.ID })
+    @Html.ActionLink("This new is ofensive! Delete it!", "DeleteNew", new { guid = element.ID }, new { style = "float:right;" })
+</div>
+}

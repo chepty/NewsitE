@@ -1,0 +1,40 @@
+﻿@model NewsitE.Models.ArticleModel
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@using (Html.BeginForm("EditNew", "Home", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    @Html.HiddenFor(m => m.ID)
+    @Html.HiddenFor(m => m.Editor)
+    @Html.HiddenFor(m => m.CreationTimestamp)
+    <br>
+    @Html.LabelFor(m => m.Title)
+    <p style="font-weight: bold;      ">
+        @Html.TextBoxFor(m => m.Title, new { style = "width: -webkit-fill-available; max-width: -webkit-fill-available" })
+    </p>
+    @Html.ValidationMessageFor(m => m.Title, null, new { style = "color:red;" })
+    <br>
+    if (Model.Author != null)
+    {
+        <p style="font-weight: normal; font-size:8px;">by @Html.DisplayFor(m => m.Author) @Html.DisplayFor(m => m.CreationTimestamp)</p>
+    }
+    if (Model.Editor != null)
+    {
+        <p style="font-weight: normal; font-size:8px;">Last edited by @Html.DisplayFor(m => m.Editor) @Html.DisplayFor(m => m.EditTimestamp)</p>
+    }
+    @Html.LabelFor(m => m.Body)
+    <p style="font-weight: normal;     width: -webkit-fill-available;     max-width: -webkit-fill-available; ">
+        @Html.TextAreaFor(m => m.Body, new { style = "width: -webkit-fill-available; max-width: -webkit-fill-available" })
+    </p>
+    @Html.ValidationMessageFor(m => m.Body, null, new { style = "color:red;" })
+    <br>
+    @Html.LabelFor(m => m.Author)
+    <p style="font-weight: normal;">
+        @Html.TextBoxFor(m => m.Author)
+    </p>
+    @Html.ValidationMessageFor(m => m.Author, null, new { style = "color:red;" })
+    <br>
+    <input style="text-align: center;" type="submit" value="Save" />
+}

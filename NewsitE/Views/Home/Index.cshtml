@@ -1,0 +1,17 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="jumbotron" style=" text-align:center;">
+    <h1>Welcome to NewsitE!</h1>
+    <p class="lead">There is definatly something interesting happening down here.</p>
+</div>
+
+<p>
+    @Html.ActionLink("Create New", "EditNew")
+</p>
+<div id="listOfNews">
+    @Html.Partial("_NewsPartial")
+</div>
+
+
