@@ -119,8 +119,6 @@ namespace NewsitE.Controllers
                 if (u.ID.Equals(Guid.Empty))
                 {
                     u.ID = Guid.NewGuid();
-                    u.Author = u.Author;
-                    u.Editor = null;
                     u.CreationTimestamp = DateTime.Now;
 
                     var log = new DBClasses.Log { };
@@ -139,6 +137,8 @@ namespace NewsitE.Controllers
                 }
                 else
                 {
+                    u.Editor = u.Author;
+
                     var log = new DBClasses.Log { };
                     log.ID = Guid.NewGuid();
                     log.ArticleID = u.ID;

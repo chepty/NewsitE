@@ -13,42 +13,29 @@ namespace NewsitE.DBClasses
             try
             {
                 art.Active = true;
-                if (art.ID.Equals(Guid.Empty))
+                using (var context = new DBClasses.NEDBContext())
                 {
-                    using (var context = new DBClasses.NEDBContext())
+                    var article = (from s in context.Articles
+                                   where s.ID.Equals(art.ID)
+                                   select s).FirstOrDefault();
+                    if (article != null)
                     {
-                        art.ID = Guid.NewGuid();
+                        article.Title = art.Title;
+                        article.Body = art.Body;
+                        article.EditTimestamp = DateTime.Now;
+                        article.Editor = art.Editor;
+
+                        context.SaveChanges();
+
+                        return true;
+                    }
+                    else
+                    {
                         context.Articles.Add(art);
                         context.SaveChanges();
                     }
-                    return true;
                 }
-                else
-                {
-                    using (var context = new DBClasses.NEDBContext())
-                    {
-                        var article = (from s in context.Articles
-                                       where s.ID.Equals(art.ID)
-                                       select s).FirstOrDefault();
-                        if (article != null)
-                        {
-                            article.Title = art.Title;
-                            article.Body = art.Body;
-                            article.EditTimestamp = DateTime.Now;
-                            article.Editor = art.Editor;
-
-                            context.SaveChanges();
-
-                            return true;
-                        }
-                        else
-                        {
-                            context.Articles.Add(art);
-                            context.SaveChanges();
-                        }
-                    }
-                    return false;
-                }
+                return false;
             }
             catch (Exception ex)
             {
