@@ -6,7 +6,7 @@
 @foreach (var element in cardlist.articles)
 {
 <div style="border: 3px solid black; margin: 5px 5px 5px 5px; padding: 5px 5px 5px 5px;overflow: hidden;">
-    <p style="font-weight: bold;">@Html.DisplayFor(m => element.Title)</p>
+    <p style="font-weight: bold; overflow: hidden;">@Html.DisplayFor(m => element.Title)</p>
     <p style="font-weight: normal; font-size:8px;">by @Html.DisplayFor(m => element.Author) @Html.DisplayFor(m => element.CreationTimestamp)</p>
     @if (element.Editor != null)
     {
